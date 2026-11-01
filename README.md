@@ -1,5 +1,12 @@
 # README
 
+## rede no docker
+- apenas a 1 vez crie uma rede no docker que sera usada pelo conteiner:
+
+```
+docker network create dev-db
+```
+
 ## ARQUIVO ENV
 - crie um arquivo .env na pasta com o seguinte conteudo:
 
@@ -10,14 +17,25 @@ POSTGRES_DB=dev
 ```
 substiua a senha por uma nova.
 
+## Subir o container
+```
+docker compose up -d 
+```
 
-## Criar base de dados
+##verificiar se o container subiu comforme esperado:
+````
+docker exec postgres-dev pg_isready -U devadmin -d dev
+
+# retorno esperado: /var/run/postgresql:5432 - accepting connections
+```
+
+## Acessar o postgress criado
 ```
 docker exec -it postgres-dev \
   psql -U devadmin -d dev
 ```
 
-## Criar usuarios:
+## Criar usuarios/database:
 
 ```
 CREATE USER api_user WITH PASSWORD 'senha_api';
